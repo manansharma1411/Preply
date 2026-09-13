@@ -34,7 +34,7 @@ const getQuizById = async (userId, quizId) => {
     throw ApiError.notFound('Quiz not found or unauthorized');
   }
 
-  return quiz;
+  return { id: quiz._id ? quiz._id.toString() : quiz.id, ...quiz };
 };
 
 const getNextAdaptiveQuestion = async (userId, quizId, currentAnswers = []) => {

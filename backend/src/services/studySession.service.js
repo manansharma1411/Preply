@@ -30,7 +30,7 @@ const getUserStudySessions = async (userId, { page = 1, limit = 10 } = {}) => {
   ]);
 
   return {
-    sessions,
+    sessions: sessions.map((s) => ({ id: s._id ? s._id.toString() : s.id, ...s })),
     pagination: {
       total,
       page,
@@ -48,7 +48,7 @@ const getStudySessionById = async (userId, sessionId) => {
   if (!session) {
     throw ApiError.notFound('Study session not found or unauthorized');
   }
-  return session;
+  return { id: session._id ? session._id.toString() : session.id, ...session };
 };
 
 const explainConcept = async (userId, sessionId, { concept, explanationMode, existingExplanation }) => {

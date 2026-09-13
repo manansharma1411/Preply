@@ -224,7 +224,7 @@ export const StudyPage = () => {
           <h1 className="text-2xl font-bold text-surface-900">{session.title}</h1>
         </div>
 
-        <Link to={`/quiz?session=${session.id}`}>
+        <Link to={`/quiz?session=${session.id || session._id}`}>
           <Button size="lg" icon={ArrowRight}>
             Start Practice Quiz
           </Button>

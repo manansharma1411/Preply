@@ -25,7 +25,9 @@ export const QuizPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingNext, setIsLoadingNext] = useState(false);
 
-  const targetId = id || searchParams.get('session') || searchParams.get('quiz') || 'latest';
+  const rawParam = searchParams.get('session') || searchParams.get('quiz');
+  const validParam = (rawParam && rawParam !== 'undefined' && rawParam !== 'null') ? rawParam : null;
+  const targetId = (id && id !== 'undefined') ? id : (validParam || 'latest');
 
   const loadQuiz = async () => {
     setLoading(true);
