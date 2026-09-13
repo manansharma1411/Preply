@@ -42,6 +42,20 @@ app.get('/health', (req, res) => {
   res.redirect('/api/v1/health');
 });
 
+// Serve compiled static frontend assets in production / container environments
+const path = require('path');
+const fs = require('fs');
+const frontendDistPath = path.join(__dirname, '../../frontend/dist');
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  });
+}
+
 // Centralized 404 and Error Handlers
 app.use(notFoundHandler);
 app.use(globalErrorHandler);

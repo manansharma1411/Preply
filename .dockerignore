@@ -1,0 +1,15 @@
+node_modules
+**/node_modules
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+dist
+build
+coverage
+*.log
+backend/uploads/*
+scratch
+.DS_Store
+Thumbs.db
