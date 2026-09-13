@@ -1,0 +1,37 @@
+{
+  "name": "preply-backend",
+  "version": "1.0.0",
+  "description": "Preply Backend REST API",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "echo \"Backend does not require transpilation\"",
+    "test": "echo \"No backend tests configured yet\"",
+    "lint": "eslint src/**/*.js --ignore-pattern node_modules/"
+  },
+  "dependencies": {
+    "@google/genai": "*",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1",
+    "pdf2json": "^4.1.0",
+    "pdfjs-dist": "^2.16.105"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "mongodb-memory-server": "^11.2.0",
+    "nodemon": "^3.1.4",
+    "pdf-lib": "^1.17.1"
+  }
+}

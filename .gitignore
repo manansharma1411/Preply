@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build & Dist Outputs
+dist/
+build/
+out/
+.vite/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Uploads & Temporary files
+uploads/
+temp/
+tmp/
+scratch/
+*.log
+
+# Operating System & Editor Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Diagnostic & Test Output
+coverage/
+.nyc_output/
+
