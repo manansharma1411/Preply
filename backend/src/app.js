@@ -29,10 +29,17 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Request Parsing & Logging
+// Request Parsing, Caching & Logging
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(requestLogger);
+
+// Performance & Caching Headers
+app.use('/api', (req, res, next) => {
+  res.set('Cache-Control', 'private, no-cache, must-revalidate');
+  res.set('X-Content-Type-Options', 'nosniff');
+  next();
+});
 
 // API Routes Base
 app.use('/api/v1', apiRoutes);

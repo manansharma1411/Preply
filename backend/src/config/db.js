@@ -33,6 +33,9 @@ const connectDB = async () => {
     try {
       const conn = await mongoose.connect(config.mongoUri, {
         serverSelectionTimeoutMS: 2000,
+        maxPoolSize: 10,
+        minPoolSize: 2,
+        socketTimeoutMS: 45000,
         autoIndex: config.env === 'development',
       });
       return conn;

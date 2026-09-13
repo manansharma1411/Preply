@@ -20,19 +20,21 @@ const getQuizById = async (userId, quizId) => {
       userId,
     })
       .populate('materialId', 'title originalFileName')
-      .populate('studySessionId', 'title summary');
+      .populate('studySessionId', 'title summary')
+      .lean();
   } else {
     quiz = await Quiz.findOne({ userId })
       .sort({ createdAt: -1 })
       .populate('materialId', 'title originalFileName')
-      .populate('studySessionId', 'title summary');
+      .populate('studySessionId', 'title summary')
+      .lean();
   }
 
   if (!quiz) {
     throw ApiError.notFound('Quiz not found or unauthorized');
   }
 
-  return quiz.toJSON();
+  return quiz;
 };
 
 const getNextAdaptiveQuestion = async (userId, quizId, currentAnswers = []) => {

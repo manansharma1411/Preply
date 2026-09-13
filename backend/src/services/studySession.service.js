@@ -24,12 +24,13 @@ const getUserStudySessions = async (userId, { page = 1, limit = 10 } = {}) => {
       .populate('materialId', 'title originalFileName fileType')
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit),
+      .limit(limit)
+      .lean(),
     StudySession.countDocuments({ userId }),
   ]);
 
   return {
-    sessions: sessions.map((s) => s.toJSON()),
+    sessions,
     pagination: {
       total,
       page,
@@ -41,12 +42,13 @@ const getUserStudySessions = async (userId, { page = 1, limit = 10 } = {}) => {
 
 const getStudySessionById = async (userId, sessionId) => {
   const session = await StudySession.findOne({ _id: sessionId, userId })
-    .populate('materialId', 'title originalFileName fileSize extractedText');
+    .populate('materialId', 'title originalFileName fileSize extractedText')
+    .lean();
     
   if (!session) {
     throw ApiError.notFound('Study session not found or unauthorized');
   }
-  return session.toJSON();
+  return session;
 };
 
 const explainConcept = async (userId, sessionId, { concept, explanationMode, existingExplanation }) => {

@@ -22,13 +22,15 @@ const getStudentDashboard = async (userId) => {
     QuizAttempt.find({ userId })
       .populate('materialId', 'title')
       .populate('quizId', 'title difficulty')
-      .sort({ completedAt: -1 }),
-    StudyMaterial.find({ userId }).sort({ createdAt: -1 }).limit(5),
+      .sort({ completedAt: -1 })
+      .lean(),
+    StudyMaterial.find({ userId }).sort({ createdAt: -1 }).limit(5).lean(),
     QuizAttempt.find({ userId })
       .populate('quizId', 'title difficulty')
       .populate('materialId', 'title')
       .sort({ completedAt: -1 })
-      .limit(5),
+      .limit(5)
+      .lean(),
   ]);
 
   const attemptsCount = allAttempts.length;
@@ -150,8 +152,8 @@ const getStudentDashboard = async (userId) => {
     weakestTopics,
     weakTopics: Array.from(weakTopicSet),
     recommendedRevision,
-    recentMaterials: recentMaterials.map((m) => m.toJSON()),
-    recentAttempts: recentAttemptsList.map((a) => a.toJSON()),
+    recentMaterials: recentMaterials.map((m) => ({ id: m._id ? m._id.toString() : m.id, ...m })),
+    recentAttempts: recentAttemptsList.map((a) => ({ id: a._id ? a._id.toString() : a.id, ...a })),
   };
 };
 
